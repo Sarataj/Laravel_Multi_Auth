@@ -40,6 +40,11 @@ return [
                 'useTLS' => true,
             ],
         ],
+        
+        'ably' => [
+            'driver' => 'ably',
+            'key' => env('ABLY_KEY'),
+        ],
 
         'redis' => [
             'driver' => 'redis',

@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,4 +16,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Auth::routes();
+// User Route
+Route::middleware(['auth','user-role:user'])->group(function()
+{
+    Route::get("/home",[HomeController::class,'userHome'])->name('home');
+});
+
+// Editor Route
+Route::middleware(['auth','user-role:editor'])->group(function()
+{
+    Route::get("/editor/home",[HomeController::class,'editorHome'])->name('home.editor');
+});
+
+// Admin Route
+Route::middleware(['auth','user-role:admin'])->group(function()
+{
+    Route::get("/admin/home",[HomeController::class,'adminHome'])->name('home.admin');
 });
